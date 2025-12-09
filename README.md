@@ -306,6 +306,102 @@
             .contact-text { font-size: 1rem; }
             .card-header { padding: 20px 15px; }
         }
+        @media (max-width: 420px) {
+            .business-card { max-width: 420px; border-radius: 16px; }
+            .card-content { padding: 15px; }
+            .logo-text { font-size: 1.6rem; }
+            .tagline { font-size: 1rem; }
+        }
+
+        /* Menu de gaveta (drawer) */
+        .drawer {
+            position: fixed;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1200;
+        }
+
+        .drawer-item {
+            width: 48px;
+            height: 48px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.18s ease, background 0.18s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+
+        .drawer-item:active { transform: scale(0.98); }
+
+        .drawer-item .label {
+            position: absolute;
+            left: 60px;
+            top: 50%;
+            transform: translateY(-50%) translateX(-8px);
+            background: rgba(10,10,10,0.9);
+            padding: 8px 12px;
+            border-radius: 8px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.18s ease, transform 0.18s ease;
+            font-size: 0.95rem;
+            color: var(--branco);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .drawer-item:hover .label,
+        .drawer-item.open .label {
+            opacity: 1;
+            transform: translateY(-50%) translateX(0);
+            pointer-events: auto;
+        }
+
+        .drawer-item .submenu {
+            position: absolute;
+            left: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(10,10,10,0.95);
+            border-radius: 8px;
+            padding: 8px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            display: none;
+            min-width: 180px;
+            z-index: 1300;
+        }
+
+        .drawer-item.open .submenu,
+        .drawer-item:hover .submenu {
+            display: block;
+        }
+
+        .drawer-item .submenu a {
+            display: block;
+            color: var(--branco);
+            text-decoration: none;
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        .drawer-item .submenu a:hover { background: rgba(255,255,255,0.03); color: var(--vermelho); }
+
+        @media (max-width: 600px) {
+            .drawer { left: 8px; }
+            .drawer-item { width: 44px; height: 44px; }
+            .drawer-item .label { display: none; }
+        }
+
     </style>
 </head>
 <body>
@@ -332,7 +428,7 @@
                             <i class="fas fa-phone-alt"></i>
                         </div>
                         <div class="contact-text">
-                            <a href="tel:88996116544">(88) 99611-6544</a>
+                            <a href="tel:+5588996116544">(88) 99611-6544</a>
                         </div>
                     </div>
                     
@@ -354,8 +450,17 @@
                         </div>
                     </div>
                     
-                    <a href="https://wa.me/5588996116544?text=Olá%20DANIELSONSMA!%20Vi%20seu%20cartão%20de%20visita%20e%20preciso%20de%20serviços%20de%20automação." 
-                       class="whatsapp-btn" target="_blank">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <a href="mailto:machadodanielson733@gmail.com">machadodanielson733@gmail.com</a>
+                        </div>
+                    </div>
+                    
+                          <a href="https://wa.me/5588996116544?text=Olá%20DANIELSONSMA!%20Vi%20seu%20cartão%20de%20visita%20e%20preciso%20de%20serviços%20de%20automação." 
+                              class="whatsapp-btn" target="_blank" rel="noopener noreferrer" aria-label="Abrir conversa no WhatsApp" role="button">
                         <i class="fab fa-whatsapp"></i>
                         Falar no WhatsApp
                     </a>
@@ -416,8 +521,42 @@
     </div>
     
     <!-- Botão flutuante do WhatsApp -->
+    <!-- Menu de gaveta (drawer) -->
+    <nav class="drawer" aria-label="Menu rápido">
+        <div class="drawer-item" data-key="servicos" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-cogs" aria-hidden="true"></i>
+            <div class="label">Serviços</div>
+            <div class="submenu" role="menu" aria-label="Serviços">
+                <a href="#" role="menuitem">CLPs Siemens</a>
+                <a href="#" role="menuitem">CLPs Schneider</a>
+                <a href="#" role="menuitem">Software para Automação</a>
+            </div>
+        </div>
+
+        <div class="drawer-item" data-key="especialidades" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-bolt" aria-hidden="true"></i>
+            <div class="label">Especialidades</div>
+            <div class="submenu" role="menu" aria-label="Especialidades">
+                <a href="#" role="menuitem">Manutenção Industrial</a>
+                <a href="#" role="menuitem">Automação de Processos</a>
+                <a href="#" role="menuitem">Indústria 4.0</a>
+            </div>
+        </div>
+
+        <div class="drawer-item" data-key="contatos" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-address-card" aria-hidden="true"></i>
+            <div class="label">Contatos</div>
+            <div class="submenu" role="menu" aria-label="Contatos">
+                <a href="tel:+5588996116544" role="menuitem">(88) 99611-6544</a>
+                <a href="mailto:machadodanielson733@gmail.com" role="menuitem">machadodanielson733@gmail.com</a>
+                <a href="https://wa.me/5588996116544" target="_blank" rel="noopener noreferrer" role="menuitem">WhatsApp</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Botão flutuante do WhatsApp -->
     <a href="https://wa.me/5588996116544?text=Olá%20DANIELSONSMA!%20Gostaria%20de%20solicitar%20um%20orçamento%20para%20serviços%20de%20automação." 
-       class="whatsapp-float" target="_blank" title="Fale conosco no WhatsApp">
+        class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Abrir conversa no WhatsApp" title="Fale conosco no WhatsApp" role="button">
         <i class="fab fa-whatsapp"></i>
     </a>
     
@@ -520,12 +659,53 @@
                 
                 const rotateY = (x - centerX) / 30;
                 const rotateX = (centerY - y) / 30;
-                
-                this.style.transform = perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg);
+
+                this.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             });
             
             card.addEventListener('mouseleave', function() {
                 this.style.transform = 'perspective(800px) rotateX(0) rotateY(0)';
+            });
+
+            // Menu de gaveta: hover já abre via CSS; aqui adicionamos toque/click e acessibilidade
+            const drawerItems = document.querySelectorAll('.drawer-item');
+
+            function closeAllDrawers(except) {
+                drawerItems.forEach(it => {
+                    if (it !== except) {
+                        it.classList.remove('open');
+                        it.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+
+            drawerItems.forEach(item => {
+                // Toggle on click/touch
+                item.addEventListener('click', function(e) {
+                    const isOpen = this.classList.toggle('open');
+                    this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                    if (isOpen) closeAllDrawers(this);
+                    e.stopPropagation();
+                });
+
+                // Keyboard support (Enter / Space)
+                item.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.click();
+                    }
+                });
+
+                // Prevent immediate blur on touch devices
+                item.addEventListener('touchstart', function(e) {
+                    // small delay to allow click handler to run properly
+                    e.stopPropagation();
+                });
+            });
+
+            // Close drawers when clicking/tapping outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.drawer')) closeAllDrawers();
             });
         });
     </script>
